@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-    $("#country").selectmenu()
+    var defaultCountry = "183";
 
     $(document).keypress(function(e) {
         var key = e.which;
@@ -10,7 +10,7 @@ $(document).ready(function() {
         }
     });
 
-    
+
 
     var picsToDisplay = [];
 
@@ -18,6 +18,21 @@ $(document).ready(function() {
         var x = moment.unix(timestamp);
         return x.fromNow();
     }
+
+    function getCountry() {
+        if ($('#country').val() == null) {
+            return defaultCountry;
+        } else {
+            return $('#country').val();
+        }
+    }
+
+    $("#select-country").click(function() {
+        $("#infobox").fadeOut();
+        picsToDisplay = [];
+        $(".imgli").fadeOut("fast");
+        displayPhotosFromDatabaseFeed();
+    });
 
     function displayPhotosFromDatabaseFeed() {
         var url = "getItemListWikidata.php";
@@ -27,7 +42,8 @@ $(document).ready(function() {
             type: "POST",
             url: url,
             data: {
-                command: "getItems"
+                command: "getItems",
+                country: getCountry(),
             },
             success: function(data) {
                 console.log("downloaded from " + url)
@@ -48,18 +64,21 @@ $(document).ready(function() {
             success: function(data) {
                 var list = data.results.bindings;
                 for (var i = 0; i < list.length; i++) {
-                    console.log(list[i])
                     var countryName = list[i].countryLabel.value;
                     var countryCount = list[i].count.value;
-                    var countryCode = list[i].country.value.replace( /\D+/g, '');
+                    var countryCode = list[i].country.value.replace(/\D+/g, '');
                     $("#country").append($('<option>').text(countryName + " (" + countryCount + ")").attr('value', countryCode));
                 }
+                $("#country").selectmenu();
+                $('#country').val(defaultCountry).selectmenu('refresh');
+                displayPhotosFromDatabaseFeed();
             }
         });
     }
 
 
     function displayPhotos(itemList) {
+
         for (var i = 0; i < itemList.length; i++) {
             var instaUsername = itemList[i]._Instagram_username.value;
             console.log(instaUsername)
@@ -71,6 +90,7 @@ $(document).ready(function() {
                 },
                 url: "insta.php",
                 success: function(data) {
+
                     var photos = jQuery.parseJSON(data).items.slice(0, 10)
                     for (var i = 0; i < 5; i++) {
                         var photo = {
@@ -109,6 +129,5 @@ $(document).ready(function() {
     }
 
     populateCountryList()
-    displayPhotosFromDatabaseFeed();
 
 });

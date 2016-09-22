@@ -34,6 +34,12 @@ body {
     font-size: 0.8em;
 }
 
+.button {
+    background-color: #C4C4C4;
+    padding: 10px 15px;
+    display: inline;
+}
+
 ul {
     padding: 0;
     list-style-type: none;
