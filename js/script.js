@@ -2,8 +2,9 @@ $(document).ready(function() {
 
     var picsToDisplay = [];
 
-    function timestampProcess(timestamp) {
-        return new Date(timestamp * 1000)
+    function timeAgo(timestamp) {
+        var x = moment.unix(timestamp);
+        return x.fromNow();
     }
 
     function displayPhotosFromDatabaseFeed() {
@@ -38,6 +39,7 @@ $(document).ready(function() {
                         var photo = {
                             username: photos[i].user.full_name,
                             timestamp: photos[i].created_time,
+                            timestamp_readable: timeAgo(photos[i].created_time),
                             caption: photos[i].caption.text,
                             url: photos[i].images.low_resolution.url,
                             link: photos[i].link
@@ -49,7 +51,7 @@ $(document).ready(function() {
                         picsToDisplay.sort(function(a, b) {
                             return parseInt(b.timestamp) - parseInt(a.timestamp);
                         });
-                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'>" + "<h3>" + photo.username + "</h3><p>" + photo.caption + "</p></div></div>" + '</li>');
+                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'>" + "<h3>" + photo.username + "</h3><p>" + photo.caption + "</p>" + "<p class='timestamp'>" + photo.timestamp_readable + "</p>" + "</div></div>" + '</li>');
                         $("#overlay-" + photo.timestamp).hide();
                         $("#overlay-" + photo.timestamp).wrap('<a href=' + photo.link + ' target="_blank"></a>');
                         $("#photo-" + photo.timestamp).hover(

@@ -61,7 +61,12 @@ ul {
 }
 
 .photo-overlay p {
-    font-size: 85%;
+    font-size: 0.8em;
+}
+
+.photo-overlay p.timestamp {
+    text-align: right;
+    font-size: 0.75em;
 }
 
 @media screen and (min-width: 380px) {
