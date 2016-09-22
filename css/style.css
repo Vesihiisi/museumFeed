@@ -25,3 +25,18 @@ ul {
     margin: 0 0 10px;
     padding: 1em;
 }
+
+.photo-container {
+    position: relative;
+}
+
+.photo-overlay {
+    background-color: black;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0.75;
+    height: 75%;
+}

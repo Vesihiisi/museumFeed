@@ -49,18 +49,25 @@ $(document).ready(function() {
                         picsToDisplay.sort(function(a, b) {
                             return parseInt(b.timestamp) - parseInt(a.timestamp);
                         });
-                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli">' + "<img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'>" + '</li>');
+                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'><p>Lorem ipsum dolor sin amet</p></div></div>" + '</li>');
+                        $("#overlay-" + photo.timestamp).hide();
+                        $("#photo-" + photo.timestamp).hover(
+                            function() {
+                                $(this).find(".photo-overlay").fadeIn();
+                            },
+                            function() {
+                                $(this).find(".photo-overlay").fadeOut();
+                            }
+                        );
                     }
 
                 }
             })
 
-
-
         }
+
     }
 
     displayPhotosFromDatabaseFeed();
-    //displayPhotos(dummyList);
 
 });
