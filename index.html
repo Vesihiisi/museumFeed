@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title></title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <div id="wrapper">
-
-    <div class="hidden infobox" id="infobox"></div>
+        <div class="hidden infobox" id="infobox">
+            <label for="country">Select country:</label>
+            <select name="country" id="country">
+            </select>
+        </div>
         <ul id="photobox">
             <li></li>
         </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
     <script src="js/script.js"></script>
 </body>

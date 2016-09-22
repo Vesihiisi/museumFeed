@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+    $("#country").selectmenu()
+
     $(document).keypress(function(e) {
         var key = e.which;
         console.log(key)
@@ -7,6 +9,8 @@ $(document).ready(function() {
             $('#infobox').toggle();
         }
     });
+
+    
 
     var picsToDisplay = [];
 
@@ -44,9 +48,11 @@ $(document).ready(function() {
             success: function(data) {
                 var list = data.results.bindings;
                 for (var i = 0; i < list.length; i++) {
+                    console.log(list[i])
                     var countryName = list[i].countryLabel.value;
                     var countryCount = list[i].count.value;
-                    $("#infobox").append("<p>" + countryName + " " + countryCount + "</p>");
+                    var countryCode = list[i].country.value.replace( /\D+/g, '');
+                    $("#country").append($('<option>').text(countryName + " (" + countryCount + ")").attr('value', countryCode));
                 }
             }
         });
