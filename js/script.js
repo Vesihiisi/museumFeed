@@ -1,5 +1,13 @@
 $(document).ready(function() {
 
+    $(document).keypress(function(e) {
+        var key = e.which;
+        console.log(key)
+        if (key == 99) {
+            $('#infobox').toggle();
+        }
+    });
+
     var picsToDisplay = [];
 
     function timeAgo(timestamp) {
@@ -14,9 +22,32 @@ $(document).ready(function() {
             dataType: "json",
             type: "POST",
             url: url,
+            data: {
+                command: "getItems"
+            },
             success: function(data) {
                 console.log("downloaded from " + url)
                 displayPhotos(data.results.bindings);
+            }
+        });
+    }
+
+    function populateCountryList() {
+        var url = "getItemListWikidata.php";
+        $.ajax({
+            dataType: "json",
+            type: "POST",
+            url: url,
+            data: {
+                command: "getCountries"
+            },
+            success: function(data) {
+                var list = data.results.bindings;
+                for (var i = 0; i < list.length; i++) {
+                    var countryName = list[i].countryLabel.value;
+                    var countryCount = list[i].count.value;
+                    $("#infobox").append("<p>" + countryName + " " + countryCount + "</p>");
+                }
             }
         });
     }
@@ -71,6 +102,7 @@ $(document).ready(function() {
 
     }
 
+    populateCountryList()
     displayPhotosFromDatabaseFeed();
 
 });
