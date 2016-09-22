@@ -1,6 +1,19 @@
+@import 'https://fonts.googleapis.com/css?family=Ubuntu';
+html {
+    box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
 body {
     background-color: black;
     color: white;
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
 }
 
 ul {
@@ -9,7 +22,6 @@ ul {
 
 .imgli {
     display: inline-block;
-    padding: 10px;
     background: #fff;
     border: 1px solid #ddd;
     box-shadow: 0 0 5px #ddd;
@@ -23,7 +35,7 @@ ul {
     max-width: 100%;
     height: auto;
     margin: 0 0 10px;
-    padding: 1em;
+    padding: 1.5em;
 }
 
 .photo-container {
@@ -32,11 +44,20 @@ ul {
 
 .photo-overlay {
     background-color: black;
+    padding: 0.2em 0.5em 0.2em 0.5em;
     color: white;
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    opacity: 0.75;
-    height: 75%;
+    background: rgba(0, 0, 0, 0.75);
+    height: 100%;
+}
+
+.photo-overlay h3 {
+    text-align: center;
+}
+
+.photo-overlay p {
+    font-size: 85%;
 }

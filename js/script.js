@@ -45,11 +45,14 @@ $(document).ready(function() {
                             url: photos[i].images.low_resolution.url,
                             note: " "
                         }
+                        if (photo.caption.length > 220) {
+                            photo.caption = photo.caption.substr(0, 220) + '…';
+                        }
                         picsToDisplay.push(photo);
                         picsToDisplay.sort(function(a, b) {
                             return parseInt(b.timestamp) - parseInt(a.timestamp);
                         });
-                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'><p>Lorem ipsum dolor sin amet</p></div></div>" + '</li>');
+                        $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'>" + "<h3>" + photo.username + "</h3><p>" + photo.caption + "</p></div></div>" + '</li>');
                         $("#overlay-" + photo.timestamp).hide();
                         $("#photo-" + photo.timestamp).hover(
                             function() {
