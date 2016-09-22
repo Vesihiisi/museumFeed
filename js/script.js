@@ -1,7 +1,4 @@
 $(document).ready(function() {
-    console.log("im working");
-
-    var dummyList = [842858, 725108, 10466069, 1647895, 1274511];
 
     var picsToDisplay = [];
 
@@ -43,7 +40,7 @@ $(document).ready(function() {
                             timestamp: photos[i].created_time,
                             caption: photos[i].caption.text,
                             url: photos[i].images.low_resolution.url,
-                            note: " "
+                            link: photos[i].link
                         }
                         if (photo.caption.length > 220) {
                             photo.caption = photo.caption.substr(0, 220) + '…';
@@ -54,12 +51,13 @@ $(document).ready(function() {
                         });
                         $('#photobox li:eq(' + picsToDisplay.indexOf(photo) + ')').after('<li class="imgli" id=photo-' + photo.timestamp + '>' + "<div class='photo-container'><img src=" + photo.url + " class='photo' id=" + photo.timestamp + " title='" + timestampProcess(photo.timestamp) + "'><div class='photo-overlay' id='overlay-" + photo.timestamp + "'>" + "<h3>" + photo.username + "</h3><p>" + photo.caption + "</p></div></div>" + '</li>');
                         $("#overlay-" + photo.timestamp).hide();
+                        $("#overlay-" + photo.timestamp).wrap('<a href=' + photo.link + ' target="_blank"></a>');
                         $("#photo-" + photo.timestamp).hover(
                             function() {
-                                $(this).find(".photo-overlay").fadeIn();
+                                $(this).find(".photo-overlay").fadeIn("fast");
                             },
                             function() {
-                                $(this).find(".photo-overlay").fadeOut();
+                                $(this).find(".photo-overlay").fadeOut("fast");
                             }
                         );
                     }
