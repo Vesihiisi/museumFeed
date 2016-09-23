@@ -48,8 +48,9 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     var list = data.results.bindings;
+
                     for (var i = 0; i < list.length; i++) {
-                        $("#account-list").append("<li>" + list[i].museumLabel.value + " (<a href=http://instagram.com/" + list[i]._Instagram_username.value + "/ target=_blank>" + list[i]._Instagram_username.value + "</a>)</li>")
+                        $("#account-list").append("<li><a href=" + list[i].museum.value + " target=_blank>" + list[i].museumLabel.value + "</a> (<a href=http://instagram.com/" + list[i]._Instagram_username.value + "/ target=_blank>" + list[i]._Instagram_username.value + "</a>)</li>")
                     }
                 }
             });
