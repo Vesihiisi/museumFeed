@@ -2,15 +2,9 @@ $(document).ready(function() {
 
     var defaultCountry = "183";
 
-    $(document).keypress(function(e) {
-        var key = e.which;
-        console.log(key)
-        if (key == 99) {
-            $('#infobox').toggle();
-        }
-    });
-
-
+    $("#config-button").click(function() {
+        $('#infobox').toggle();
+    })
 
     var picsToDisplay = [];
 
