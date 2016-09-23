@@ -3,6 +3,8 @@ $(document).ready(function() {
     var defaultCountry = "183";
 
     $("#infobox").dialog({
+        autoOpen: false,
+        modal: true,
         position: { my: "center", at: "center", of: window },
         width: 500,
         title: "Select country",
@@ -18,13 +20,13 @@ $(document).ready(function() {
                 displayPhotosFromDatabaseFeed();
             }
         }]
-    }).dialog("close");
+    })
 
     $("#config-button").click(function() {
         if ($("#infobox").dialog("isOpen")) {
             $("#infobox").dialog("close");
         } else {
-            $("#infobox").dialog("open")
+            $("#infobox").dialog("open");
         }
     })
 

@@ -14,14 +14,17 @@ body {
     color: white;
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
+    overflow-y: scroll;
 }
 
 .hidden {
     display: none;
 }
 
-.infobox {
-
+.ui-widget-overlay {
+    opacity: 0.75;
+    filter: Alpha(Opacity=75);
+    background-color: black;
 }
 
 .config-button {
