@@ -21,23 +21,7 @@ body {
 }
 
 .infobox {
-    background-color: #ffffff;
-    border: 2px solid #000000;
-    border-radius: 10px;
-    color: #000000;
-    left: 25%;
-    padding: 1em;
-    position: absolute;
-    top: 5%;
-    width: 50%;
-    z-index: 99;
-    font-size: 0.8em;
-}
 
-.button {
-    background-color: #C4C4C4;
-    padding: 10px 15px;
-    display: inline;
 }
 
 .config-button {

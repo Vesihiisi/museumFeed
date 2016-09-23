@@ -2,8 +2,30 @@ $(document).ready(function() {
 
     var defaultCountry = "183";
 
+    $("#infobox").dialog({
+        position: { my: "center", at: "center", of: window },
+        width: 500,
+        title: "Select country",
+        buttons: [{
+            text: "Ok",
+            icons: {
+                primary: "ui-icon-check"
+            },
+            click: function() {
+                $( this ).dialog( "close" );
+                picsToDisplay = [];
+                $(".imgli").fadeOut("fast");
+                displayPhotosFromDatabaseFeed();
+            }
+        }]
+    }).dialog("close");
+
     $("#config-button").click(function() {
-        $('#infobox').toggle();
+        if ($("#infobox").dialog("isOpen")) {
+            $("#infobox").dialog("close");
+        } else {
+            $("#infobox").dialog("open")
+        }
     })
 
     var picsToDisplay = [];
@@ -21,12 +43,7 @@ $(document).ready(function() {
         }
     }
 
-    $("#select-country").click(function() {
-        $("#infobox").fadeOut();
-        picsToDisplay = [];
-        $(".imgli").fadeOut("fast");
-        displayPhotosFromDatabaseFeed();
-    });
+
 
     function displayPhotosFromDatabaseFeed() {
         var url = "getItemListWikidata.php";
@@ -63,7 +80,9 @@ $(document).ready(function() {
                     var countryCode = list[i].country.value.replace(/\D+/g, '');
                     $("#country").append($('<option>').text(countryName + " (" + countryCount + ")").attr('value', countryCode));
                 }
-                $("#country").selectmenu();
+                $("#country").selectmenu({
+                    width: 300,
+                });
                 $('#country').val(defaultCountry).selectmenu('refresh');
                 displayPhotosFromDatabaseFeed();
             }
