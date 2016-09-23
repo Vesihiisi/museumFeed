@@ -14,7 +14,7 @@ $(document).ready(function() {
                 primary: "ui-icon-check"
             },
             click: function() {
-                $( this ).dialog( "close" );
+                $(this).dialog("close");
                 picsToDisplay = [];
                 $(".imgli").fadeOut("fast");
                 displayPhotosFromDatabaseFeed();
@@ -112,7 +112,7 @@ $(document).ready(function() {
                             username: photos[i].user.full_name,
                             timestamp: photos[i].created_time,
                             timestamp_readable: timeAgo(photos[i].created_time),
-                            caption: photos[i].caption.text,
+                            caption: photos[i].caption == null ? "" : photos[i].caption.text,
                             url: photos[i].images.low_resolution.url,
                             link: photos[i].link
                         }
