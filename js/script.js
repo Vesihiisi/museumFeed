@@ -9,6 +9,14 @@ $(document).ready(function() {
         width: 500,
         title: "Select country",
         buttons: [{
+            text: "Info",
+            icons: {
+                primary: "ui-icon-info"
+            },
+            click: function() {
+                $("#infobox-list").dialog("open");
+            }
+        }, {
             text: "Ok",
             icons: {
                 primary: "ui-icon-check"
@@ -20,6 +28,32 @@ $(document).ready(function() {
                 displayPhotosFromDatabaseFeed();
             }
         }]
+    })
+
+    $("#infobox-list").dialog({
+        autoOpen: false,
+        modal: true,
+        width: 600,
+        maxHeight: 500,
+        position: { my: "top", at: "top+15%", of: window },
+        open: function(event, ui) {
+            $("#account-list").empty();
+            $.ajax({
+                dataType: "json",
+                type: "POST",
+                url: "getItemListWikidata.php",
+                data: {
+                    command: "usernamesInCountry",
+                    country: getCountry(),
+                },
+                success: function(data) {
+                    var list = data.results.bindings;
+                    for (var i = 0; i < list.length; i++) {
+                        $("#account-list").append("<li>" + list[i].museumLabel.value + " (<a href=http://instagram.com/" + list[i]._Instagram_username.value + "/ target=_blank>" + list[i]._Instagram_username.value + "</a>)</li>")
+                    }
+                }
+            });
+        }
     })
 
     $("#config-button").click(function() {
@@ -49,7 +83,6 @@ $(document).ready(function() {
 
     function displayPhotosFromDatabaseFeed() {
         var url = "getItemListWikidata.php";
-        console.log("Preparing to load from " + url)
         $.ajax({
             dataType: "json",
             type: "POST",
@@ -59,7 +92,6 @@ $(document).ready(function() {
                 country: getCountry(),
             },
             success: function(data) {
-                console.log("downloaded from " + url)
                 displayPhotos(data.results.bindings);
             }
         });
@@ -96,8 +128,6 @@ $(document).ready(function() {
 
         for (var i = 0; i < itemList.length; i++) {
             var instaUsername = itemList[i]._Instagram_username.value;
-            console.log(instaUsername)
-
             $.ajax({
                 type: "POST",
                 data: {
