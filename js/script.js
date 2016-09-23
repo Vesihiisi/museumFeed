@@ -5,7 +5,7 @@ $(document).ready(function() {
     $("#infobox").dialog({
         autoOpen: false,
         modal: true,
-        position: { my: "center", at: "center", of: window },
+        position: { my: "top", at: "top+10%", of: window },
         width: 500,
         title: "Select country",
         buttons: [{
