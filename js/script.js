@@ -48,7 +48,8 @@ $(document).ready(function() {
                 },
                 success: function(data) {
                     var list = data.results.bindings;
-
+                    list.sort(function(a, b) {
+                        return (a.museumLabel.value > b.museumLabel.value) ? 1 : ((b.museumLabel.value > a.museumLabel.value) ? -1 : 0); });
                     for (var i = 0; i < list.length; i++) {
                         $("#account-list").append("<li><a href=" + list[i].museum.value + " target=_blank>" + list[i].museumLabel.value + "</a> (<a href=http://instagram.com/" + list[i]._Instagram_username.value + "/ target=_blank>" + list[i]._Instagram_username.value + "</a>)</li>")
                     }
