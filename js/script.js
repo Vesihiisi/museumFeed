@@ -190,7 +190,8 @@ $(document).ready(function() {
                 for (var i = 0; i < list.length; i++) {
                     var country = {
                         name : list[i].countryLabel.value,
-                        code : list[i].country.value.replace(/\D+/g, '')
+                        code : list[i].country.value.replace(/\D+/g, ''),
+                        iso : list[i].isoCode.value.toLowerCase(),
                     };
                     countryDict.push(country)
                 }
