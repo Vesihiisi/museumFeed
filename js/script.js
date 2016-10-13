@@ -86,6 +86,11 @@ $(document).ready(function() {
 
 
     function displayPhotosFromDatabaseFeed() {
+        if (countryDict.length === 0) {
+            getCountryDictionary(true);
+        } else {
+            changeFlag();
+        }
         var url = "getItemListWikidata.php";
         $.ajax({
             dataType: "json",
@@ -177,7 +182,7 @@ $(document).ready(function() {
 
     }
 
-    function getCountryDictionary() {
+    function getCountryDictionary(change) {
         $.ajax({
             dataType: "json",
             type: "POST",
@@ -186,18 +191,35 @@ $(document).ready(function() {
                 command: "getCountryDictionary"
             },
             success: function(data) {
-                var list = data.results.bindings; 
+                var list = data.results.bindings;
                 for (var i = 0; i < list.length; i++) {
                     var country = {
-                        name : list[i].countryLabel.value,
-                        code : list[i].country.value.replace(/\D+/g, ''),
-                        iso : list[i].isoCode.value.toLowerCase(),
+                        name: list[i].countryLabel.value,
+                        code: list[i].country.value.replace(/\D+/g, ''),
+                        iso: list[i].isoCode.value.toLowerCase(),
                     };
                     countryDict.push(country)
                 }
-            console.log(countryDict)
+                if (change == true) {
+                    changeFlag();
+                }
             }
         });
+    }
+
+    function getByValue(arr, value) {
+        for (var i = 0, iLen = arr.length; i < iLen; i++) {
+            if (arr[i].b == value) return arr[i];
+        }
+    }
+
+    function changeFlag() {
+        var code = getCountry();
+        var obj = countryDict.filter(function(obj) {
+            return obj.code === code;
+        })[0];
+        console.log(obj);
+        $("#config-button").html('<span class="flag-icon flag-icon-' + obj.iso + '"></span>');
     }
 
     getCountryDictionary();
