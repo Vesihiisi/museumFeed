@@ -2,6 +2,18 @@ $(document).ready(function() {
 
     var defaultCountry = "183";
     var countryDict = [];
+    var SCREEN_LIMIT = 100;
+
+    function calculateItemsPerSource(numberOfSources) {
+        var result = Math.floor(SCREEN_LIMIT / numberOfSources);
+        if (result > 20) {
+            return 20; // we only get 20 from instagram
+        } else if (result < 1) {
+            return 1;
+        } else {
+            return result;
+        }
+    }
 
     $("#infobox").dialog({
         autoOpen: false,
@@ -134,7 +146,9 @@ $(document).ready(function() {
 
 
     function displayPhotos(itemList) {
-
+        console.log(itemList.length)
+        var numOfItems = calculateItemsPerSource(itemList.length);
+        console.log("ITEMS PER SOURCE: " + numOfItems)
         for (var i = 0; i < itemList.length; i++) {
             var instaUsername = itemList[i]._Instagram_username.value;
             $.ajax({
@@ -144,9 +158,8 @@ $(document).ready(function() {
                 },
                 url: "insta.php",
                 success: function(data) {
-
-                    var photos = jQuery.parseJSON(data).items.slice(0, 10)
-                    for (var i = 0; i < 5; i++) {
+                    var photos = jQuery.parseJSON(data).items
+                    for (var i = 0; i < numOfItems; i++) {
                         var photo = {
                             username: photos[i].user.full_name,
                             timestamp: photos[i].created_time,
@@ -218,7 +231,6 @@ $(document).ready(function() {
         var obj = countryDict.filter(function(obj) {
             return obj.code === code;
         })[0];
-        console.log(obj);
         $("#config-button").html('<span class="flag-icon flag-icon-' + obj.iso + '"></span>');
     }
 
